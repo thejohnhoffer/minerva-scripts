@@ -9,6 +9,7 @@ with open(os.path.join(HERE, 'README.md')) as f:
     README = f.read()
 
 REQUIRES = [
+    'boto3>=1.7.23',
     'pytest>=3.3.2',
     'numpy>=1.11.1',
     'pyaml>=16.12.2',
@@ -43,6 +44,7 @@ setup(
     install_requires=REQUIRES,
     entry_points={
         'console_scripts': [
+            'combine_aws=minerva_scripts.scripts.aws:main',
             'combine=minerva_scripts.scripts.combine:main',
             'precompute=minerva_scripts.scripts.precompute:main',
         ]
