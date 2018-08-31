@@ -12,14 +12,12 @@ INSTALL_REQ = [
 
 setup(
     version=VERSION,
-    name='minerva_figure',
+    name='minerva-scripts',
     author='John Hoffer',
-    packages=find_packages(),
+    package_dir={'': 'src'},
+    packages=find_packages('src'),
     author_email='john_hoffer@hms.harvard.edu',
-    url="https://github.com/thejohnhoffer/minerva_scripts",
+    url="https://github.com/thejohnhoffer/minerva-scripts",
     description="Serve data from Minerva to Omero figure",
-    install_requires=INSTALL_REQ,
-    entry_points=dict(console_scripts=[
-        'serve = server:main'
-    ])
+    install_requires=INSTALL_REQ
 )
