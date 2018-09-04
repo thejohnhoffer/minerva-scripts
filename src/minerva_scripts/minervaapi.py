@@ -4,12 +4,10 @@ import xml.etree.ElementTree as ET
 import urllib
 import json
 import sys
+import png
 import numpy as np
 import botocore
 import boto3
-
-import skimage.io
-import skimage.exposure
 
 from .metadata_xml import parse_image
 
@@ -75,7 +73,7 @@ class MinervaApi():
         })
         try:
             with urllib.request.urlopen(req) as f:
-                return skimage.io.imread(f)[:, :, 0]
+                return png.Reader(file=f).asDirect()
         except urllib.error.HTTPError as e:
             print(e, file=sys.stderr)
             return None

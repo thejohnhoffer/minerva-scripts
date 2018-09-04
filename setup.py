@@ -5,9 +5,9 @@ from setuptools import setup
 VERSION = 0.0
 INSTALL_REQ = [
     'pypng>=0.0.18',
-    'tornado>=5.1',
     'numpy>=1.14.3',
-    'boto>=2.48.0'
+    'boto3>=1.7.81',
+    'botocore>=1.10.81'
 ]
 
 setup(
