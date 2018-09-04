@@ -73,7 +73,14 @@ class MinervaApi():
         })
         try:
             with urllib.request.urlopen(req) as f:
-                return png.Reader(file=f).asDirect()
+                pngdata = png.Reader(file=f).asDirect()
+                pixel_data = list(pngdata[2])
+                (w, h) = pngdata[3]['size']
+                flow = np.zeros((h, w), dtype=np.uint8)
+                for i in range(len(pixel_data)):
+                    flow[i, :] = pixel_data[i][0::3]
+                return flow
+
         except urllib.error.HTTPError as e:
             print(e, file=sys.stderr)
             return None
