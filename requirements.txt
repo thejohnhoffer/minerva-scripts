@@ -3,3 +3,5 @@ tornado>=5.1
 pypng>=0.0.18
 numpy>=1.14.3
 boto>=2.48.0
+botocore>=1.10.81
+scikit-image>=0.13.1
