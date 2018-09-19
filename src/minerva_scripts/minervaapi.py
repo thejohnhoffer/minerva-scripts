@@ -141,9 +141,9 @@ class MinervaApi():
             indices: dictionary with following keys:
                 limit: maximum pixel value
                 levels: number of pyramid levels
-                image_size: image size in x, y
-                tile_size: tile size in x, y
-                ctxy: integer channels, timesteps, tiles in x, y
+                image_shape: image size in y, x
+                tile_shape: tile size in y, x
+                ctyx: integer channels, timesteps, tiles in y, x
         '''
         config = cls.load_config(uuid, token, bucket, domain)
 
@@ -155,10 +155,11 @@ class MinervaApi():
         y = int(np.ceil(h / th))
         x = int(np.ceil(w / tw))
 
+        # Use y, x coordinates
         return {
             'limit': np.iinfo(getattr(np, dtype)).max,
             'levels': config['levels'],
-            'image_size': [w, h],
-            'tile_size': [tw, th],
-            'ctxy': [c, t, x, y],
+            'image_shape': [h, w],
+            'tile_shape': [th, tw],
+            'ctyx': [c, t, y, x],
         }

@@ -68,19 +68,19 @@ if __name__ == '__main__':
     channels = map(MinervaApi.format_input, inputs)
 
     # Minerva loads the tiles
-    def ask_minerva(c, l, i, j):
+    def ask_minerva(c, l, y, x):
         keywords = {
             't': 0,
             'z': 0,
             'l': l,
-            'x': i,
-            'y': j
+            'x': x,
+            'y': y
         }
         limit = keys['limit']
         return MinervaApi.image(uuid, token, c, limit, **keywords)
 
     # Minerva does the cropping
-    out = do_crop(ask_minerva, channels, keys['tile_size'],
+    out = do_crop(ask_minerva, channels, keys['tile_shape'],
                   keys['origin'], keys['shape'], keys['levels'],
                   keys['max_size'])
 

@@ -46,16 +46,15 @@ class OmeroApi():
         Return Keywords:
             t: integer timestep
             z: integer z position in stack
-            max_size: maximum extent in x or y
-            origin:
-                integer [x, y]
-            shape:
-                [width, height]
+            max_size: maximum height or width
+            origin: integer [y, x]
+            shape: integer [height, width]
             chan: integer N channels by 1 index
             r: float32 N channels by 2 min, max
             c: float32 N channels by 3 red, green, blue
-            indices: size in channels, times, LOD, Z, Y, X
-            tile: image tile size in pixels: y, x
+            ctyx: size in channels, time, y, x
+            tile_shape: image tile size in height, width
+            levels: integer number of levels
             limit: max image pixel value
         '''
 
@@ -90,10 +89,10 @@ class OmeroApi():
 
         if region is not None:
             x, y, width, height = parse_region(region)
-            shape = np.array([width, height])
-            origin = np.array([x, y])
+            shape = np.array([height, width])
+            origin = np.array([y, x])
         else:
-            shape = np.array(meta['image_size'])
+            shape = np.array(meta['image_shape'])
             origin = np.array([0, 0])
 
         def get_range(chan):
@@ -104,12 +103,13 @@ class OmeroApi():
             c = np.array(chan['color']) / 255
             return np.clip(c, 0, 1)
 
+        # Use xy coordinates
         return {
-            'ctxy': meta['ctxy'],
+            'ctyx': meta['ctyx'],
             'limit': meta['limit'],
             'levels': meta['levels'],
-            'tile_size': meta['tile_size'],
-            'image_size': meta['image_size'],
+            'tile_shape': meta['tile_shape'],
+            'image_shape': meta['image_shape'],
             'r': np.array([get_range(c) for c in chans]),
             'c': np.array([get_color(c) for c in chans]),
             'chan': np.int64([c['cid'] for c in chans]),
