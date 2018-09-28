@@ -1,4 +1,3 @@
-git+git://github.com/thejohnhoffer/minerva-lib-python@c5baaa78bfb60f5ca3500d9ffe79ef987b0f333d#egg=minerva-lib
 pypng>=0.0.18
 numpy>=1.14.3
 boto3>=1.7.81
